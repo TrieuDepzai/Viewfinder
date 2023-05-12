@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)https://viewfinder.vn/ -->
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css" id="alertifyCSS">
+      .alertify-logs>* {
+        padding: 12px 24px;
+        color: #fff;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .2);
+        border-radius: 1px
+      }
+
+      .alertify-logs>*,
+      .alertify-logs>.default {
+        background: rgba(0, 0, 0, .8)
+      }
+
+      .alertify-logs>.error {
+        background: rgba(244, 67, 54, .8)
+      }
+
+      .alertify-logs>.success {
+        background: rgba(76, 175, 80, .9)
+      }
+
+      .alertify {
+        position: fixed;
+        background-color: rgba(0, 0, 0, .3);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1
+      }
+      .alertify.hide {
+        opacity: 0;
+        pointer-events: none
+      }
+
+      .alertify,
+      .alertify.show {
+        box-sizing: border-box;
+        transition: all .33s cubic-bezier(.25, .8, .25, 1)
+      }
+
+      .alertify,
+      .alertify * {
+        box-sizing: border-box
+      }
+
+      .alertify .dialog {
+        padding: 12px
+      }
+
+      .alertify .alert,
+      .alertify .dialog {
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%)
+      }
+
+      .alertify .alert>*,
+      .alertify .dialog>* {
+        width: 400px;
+        max-width: 95%;
+        margin: 0 auto;
+        text-align: center;
+        padding: 12px;
+        background: #fff;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .14), 0 4px 5px 0 rgba(0, 0, 0, .098), 0 1px 10px 0 rgba(0, 0, 0, .084)
+      }
+
+      .alertify .alert .msg,
+      .alertify .dialog .msg {
+        padding: 12px;
+        margin-bottom: 12px;
+        margin: 0;
+        text-align: left
+      }
+
+      .alertify .alert input:not(.form-control),
+      .alertify .dialog input:not(.form-control) {
+        margin-bottom: 15px;
+        width: 100%;
+        font-size: 100%;
+        padding: 12px
+      }
+
+      .alertify .alert input:not(.form-control):focus,
+      .alertify .dialog input:not(.form-control):focus {
+        outline-offset: -2px
+      }
+
+      .alertify .alert nav,
+      .alertify .dialog nav {
+        text-align: right
+      }
+
+      .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button),
+      .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button) {
+        background: transparent;
+        box-sizing: border-box;
+        color: rgba(0, 0, 0, .87);
+        position: relative;
+        outline: 0;
+        border: 0;
+        display: inline-block;
+        -ms-flex-align: center;
+        -ms-grid-row-align: center;
+        align-items: center;
+        padding: 0 6px;
+        margin: 6px 8px;
+        line-height: 36px;
+        min-height: 36px;
+        white-space: nowrap;
+        min-width: 88px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 14px;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 2px
+      }
+
+      .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):active,
+      .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):hover,
+      .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):active,
+      .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):hover {
+        background-color: rgba(0, 0, 0, .05)
+      }
+
+      .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):focus,
+      .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):focus {
+        border: 1px solid rgba(0, 0, 0, .1)
+      }
+
+      .alertify .alert nav button.btn,
+      .alertify .dialog nav button.btn {
+        margin: 6px 4px
+      }
+
+      .alertify-logs {
+        position: fixed;
+        z-index: 1
+      }
+
+      .alertify-logs.bottom,
+      .alertify-logs:not(.top) {
+        bottom: 16px
+      }
+
+      .alertify-logs.left,
+      .alertify-logs:not(.right) {
+        left: 16px
+      }
+
+      .alertify-logs.left>*,
+      .alertify-logs:not(.right)>* {
+        float: left;
+        transform: translateZ(0);
+        height: auto
+      }
+
+      .alertify-logs.left>.show,
+      .alertify-logs:not(.right)>.show {
+        left: 0
+      }
+
+      .alertify-logs.left>*,
+      .alertify-logs.left>.hide,
+      .alertify-logs:not(.right)>*,
+      .alertify-logs:not(.right)>.hide {
+        left: -110%
+      }
+
+      .alertify-logs.right {
+        right: 16px
+      }
+
+      .alertify-logs.right>* {
+        float: right;
+        transform: translateZ(0)
+      }
+
+      .alertify-logs.right>.show {
+        right: 0;
+        opacity: 1
+      }
+
+      .alertify-logs.right>*,
+      .alertify-logs.right>.hide {
+        right: -110%;
+        opacity: 0
+      }
+
+      .alertify-logs.top {
+        top: 0
+      }
+
+      .alertify-logs>* {
+        box-sizing: border-box;
+        transition: all .4s cubic-bezier(.25, .8, .25, 1);
+        position: relative;
+        clear: both;
+        backface-visibility: hidden;
+        perspective: 1000;
+        max-height: 0;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none
+      }
+
+      .alertify-logs>.show {
+        margin-top: 12px;
+        opacity: 1;
+        max-height: 1000px;
+        padding: 12px;
+        pointer-events: auto
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="upload/favicon.png" type="image/x-icon">
+    <meta name="theme-color" content="#1D9662">
+    <!--meta name="robots" content="index, follow" /><meta name="keywords" content="ViewFinder"/><meta name="description" content="ViewFinder"/><meta property="og:title" content="ViewFinder - "/><meta property="og:description" content="ViewFinder"/-->
+    <title>FrankMedia - An eye for inspiration.</title>
+    <meta name="keywords" content="FrankMedia">
+    <meta name="description" content="You need a story-teller? We are your Eye of inspiration. FrankMedia Vietnam, full services Production house and now Digital solutions">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="FrankMedia">
+    <meta name="copyright" content="2019 FrankMedia">
+    <meta property="og:title" content="FrankMedia - An eye for inspiration.">
+    <meta property="og:description" content="You need a story-teller? We are your Eye of inspiration. FrankMedia Vietnam, full services Production house and now Digital solutions">
+    <meta property="og:image" content="./upload/AboutUs-QuoteSect1-bg.jpg">
+    
+    <link rel="stylesheet" type="text/css" href="./final.css">
+    <link rel="stylesheet" href="./all.css">
+    <script src="./all.js"></script>
+    <link href="./aos.css" rel="stylesheet">
+    <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+
+  </head>
+  <body data-aos-easing="ease-in-sine" data-aos-duration="800" data-aos-delay="0">
+    <script type="text/javascript">
+      var afterInit = [];
+      window.mpireModules = [];
+      window.tokenKey = 'Vi83RWZTem5rVWlRV01mNGwzU0tKZz09';
+      window.token = 'THJGZjZrcjhPa0M3VDNxTytLeXR5UT09';
+      var slider_speed = 5000;
+    </script>
+    <div class="menu_show">
+      <div class="container-fluid">
+        <div class="menu_site pt-30 text-right">
+          <a class="btn-menu btn-close-menu-show" href="javascript:void(0);">
+            <img src="./upload/closemenu.png" class="img-fluid p-3" alt="">
+          </a>
+        </div>
+      </div>
+      <div class="container">
+        <div id="menu" class="flex-center">
+          <ul>
+            <li class="fs-23 mb-30">
+              <a class="fs-47 active" href="/home.html">Home</a>
+            </li>
+            <li class="fs-23 mb-30">
+              <a class="fs-47" href="/about.html">About Us</a>
+            </li>
+            <li class="fs-23 mb-30">
+              <a class="fs-47" href="/ourworks.html">Our Works</a>
+            </li>
+            <li class="fs-23 mb-30">
+              <a class="fs-47" href="/contact.html">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="social_list text-center ">
+      <ul class="list-unstyled">
+        <li>
+          <a target="_blank" href="https://www.facebook.com/trieu.zzz/">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.facebook.com/trieu.zzz/">
+            <i class="fa-brands fa-vimeo"></i>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.facebook.com/trieu.zzz/">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.facebook.com/trieu.zzz/">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </li>
+        <li>
+          <a target="_blank" href="https://www.facebook.com/trieu.zzz/">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--End .social-->
+    <header id="header_site" class="fixed-top pt-30">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-9">
+            <div class="logo_site">
+              <a class="logo-wrap" href="home.html">
+                <img src="./upload/franklogo.PNG" alt="" style="width:32px"> Frank Media
+              </a>
+            </div>
+          </div>
+          <div class="col-3 text-right">
+            <div class="menu_site">
+              <a class="btn-menu" href="javascript:void(0);">
+                <img src="./upload/menu_icon.svg" class="img-fluid h-40px pt-2 pb-2" alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="loading_page hide_loading">
+      <div class="flex-center">
+        <div class="text-center">
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <span class="text-uppercase cl-lightblue">Loading</span>
+        </div>
+      </div>
+    </div>
+    <div class="loading_page_second hide_loading"></div>
+    <!--end .loading_page-->
+    <script type="text/javascript">
+      // var obj = {}; // window.mpireModules.push({key: './Loadingz/views/web/js/loadingz.js', f: 'run', params: obj}); 
+    </script>
+    <div class="grid">
+      <div class="container">
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+    <!-- end .grid-->
+    <div class="right_navigation d-none d-md-block text-center">
+      <div class="ff-thin o-6">F4.5</div>
+      <div>ISO 250</div>
+      <div class="ff-thin o-6">4000K</div>
+      <div class="circle_ruler-wrap">
+        <ul class="list-unstyled circle_ruler text-center" style="top: -100.628px;">
+          <li>2</li>
+          <li>1</li>
+          <li class="cl-red">0</li>
+          <li>-1</li>
+          <li>-2</li>
+        </ul>
+      </div>
+      <div>MF</div>
+      <div class="section_name fs-11 text-uppercase cl-lightblue" id="active-sec">
+        <span class="text-sec home-point active">Homepage</span>
+        <span class="text-sec our-featured-point">OUR FEATURED</span>
+        <span class="text-sec about-point">About</span>
+        <span class="text-sec our-network-point">OUR NETWORK</span>
+        <span class="text-sec our-expertise-point">Our Expertise</span>
+        <span class="text-sec partner">Partner</span>
+      </div>
+    </div>
+    <!--end .right_navigation-->
+    <div class="count_up fs-11" data-autostart="true">
+      <div class="time">
+        <span class="hours">00</span> : <span class="minutes">02</span> : <span class="seconds">45</span> : <span class="milliseconds">76</span>
+      </div>
+    </div>
+    <!--End .count_up-->
+    <div class="hero_banner ps-rel h-100vw o-hidden point-sec" id="home-point">
+      <div class="scrolldown d-none d-md-block fs-11">
+        <a href="#">
+          <span>explore our story</span>
+          <img src=".//upload/mouse.svg" alt="">
+        </a>
+      </div>
+      <video autoplay="" loop="" id="video-background" muted="" playsinline="">
+        <source src="/upload/banner-video-1.mp4" type="video/mp4">
+      </video>
+      <div class="flex-center">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="fs-63 ff-bold mb-15">
+                <div class="o-hidden d-block ps-rel">
+                  <div data-aos="fade-up" class="aos-init aos-animate">FRANK MEDIA</div>
+                </div>
+              </div>
+              <div class="fs-13 d-non d-md-block">
+                <div class="o-hidden d-none d-md-block ps-rel">
+                  <div data-aos="fade-up" class="aos-init aos-animate">At FrankMedia, we believe your brand has a unique story to tell. As a client, you have many challenges in advertising. Guiding the promotion of your product, to inform and satisfy your customer base and to ensure successful sales. At Viewfinder we can help your brand tell its story and make your products desirable. Viewfinders success relies upon our clients success.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn_play" >
+        <a data-fancybox="" href="https://www.youtube.com/watch?v=y0ZPUh62ahE" class="cl-blue">
+          <i class="fa-solid fa-play fs-23"></i>
+        </a>
+        <div class="fs-11 cl-lightblue text-description ff-bold"> Watch our showreel </div>
+      </div>
+      <div class="red_button cl-red ff-bold">
+        <i class="fa fa-circle mr-2" aria-hidden="true"></i> REC
+      </div>
+    </div>
+    <div class="slide-home-banner bg-bluedark point-sec" id="our-featured-point">
+      <div id="featured_project" class="slider-for">
+        <div class="row featured_project bg-opacity70" id="featured-project-320" style="background-image: url(/upload/images/vlcsnap-2023-01-04-18h09m10s578-50.png)">
+          <div class="container plr-0">
+            <div class="col-md-12 order-md-0">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="text-center aos-init" data-aos="fade-down">
+                    <div class="lds-ellipsis">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                  <!-- <div class="btn_play" data-aos="zoom-in"><a data-fancybox href="https://www.youtube.com/watch?v=fqfY34yuJlA" class="cl-blue"><i class="fa fa-play fs-23" aria-hidden="true"></i></a></div> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 order-md-1 text-featured">
+              <div class="row justify-content-end">
+                <div class="col-md-9">
+                  <div class="cl-lightblue mb-30 fs-17">
+                    <div class="o-hidden d-block ps-rel">
+                      <div data-aos="fade-up" class="aos-init"> OUR FEATURED WORKS </div>
+                    </div>
+                  </div>
+                  <div class="fs-47 mb-2 ff-bold text-white">
+                    <div class="o-hidden d-block ps-rel">
+                      <div data-aos="fade-up" class="aos-init"> Kia Sportage </div>
+                    </div>
+                  </div>
+                  <div class="mb-50 fs-20 aos-init" data-aos="fade-right">
+                    <span class="line_before"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row featured_project  bg-opacity70" id="featured-project-319" style="background-image: url(/upload/vlcsnap-2023-01-04-18h06m29s255-50.png)">
+          <div class="container plr-0">
+            <div class="col-md-12 order-md-0">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="text-center aos-init" data-aos="fade-down">
+                    <div class="lds-ellipsis">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                  <!-- <div class="btn_play" data-aos="zoom-in"><a data-fancybox href="https://www.youtube.com/watch?v=1zIG6w6gAL8" class="cl-blue"><i class="fa fa-play fs-23" aria-hidden="true"></i></a></div> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 order-md-1 text-featured">
+              <div class="row justify-content-end">
+                <div class="col-md-9">
+                  <div class="cl-lightblue mb-30 fs-17">
+                    <div class="o-hidden d-block ps-rel">
+                      <div data-aos="fade-up" class="aos-init"> OUR FEATURED WORKS </div>
+                    </div>
+                  </div>
+                  <div class="fs-47 mb-2 ff-bold text-white">
+                    <div class="o-hidden d-block ps-rel">
+                      <div data-aos="fade-up" class="aos-init"> Vietnam Airlines Safety Flight 2022 </div>
+                    </div>
+                  </div>
+                  <div class="mb-50 fs-20 aos-init" data-aos="fade-right">
+                    <span class="line_before"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row featured_project  bg-opacity70 show-img" id="featured-project-318" style="background-image: url(/upload/images/vlcsnap-2023-01-04-18h03m45s264-50.png)">
+          <div class="container plr-0">
+            <div class="col-md-12 order-md-0">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="text-center aos-init" data-aos="fade-down">
+                    <div class="lds-ellipsis">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                  <!-- <div class="btn_play" data-aos="zoom-in"><a data-fancybox href="https://www.youtube.com/watch?v=pXl-ml5yRXc" class="cl-blue"><i class="fa fa-play fs-23" aria-hidden="true"></i></a></div> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 order-md-1 text-featured">
+              <div class="row justify-content-end">
+                <div class="col-md-9">
+                  <div class="cl-lightblue mb-30 fs-17">
+                    <div class="o-hidden d-block ps-rel">
+                      <div data-aos="fade-up" class="aos-init"> OUR FEATURED WORKS </div>
+                    </div>
+                  </div>
+                  <div class="fs-47 mb-2 ff-bold text-white">
+                    <div class="o-hidden d-block ps-rel">
+                      <div data-aos="fade-up" class="aos-init"> Morden Acecook Riêu Cua </div>
+                    </div>
+                  </div>
+                  <div class="mb-50 fs-20 aos-init" data-aos="fade-right">
+                    <span class="line_before"></span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row featured_project  bg-opacity70" id="featured-project-292" style="background-image: url(/upload/screen-shot-2022-03-02-at-105456-am.png)">
+          <div class="container plr-0">
+            <div class="col-md-12 order-md-0">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="text-center aos-init" data-aos="fade-down">
+                    <div class="lds-ellipsis">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                  <!-- <div class="btn_play" data-aos="zoom-in"><a data-fancybox href="https://www.youtube.com/watch?v=yhEOXOOlGDc" class="cl-blue"><i class="fa fa-play fs-23" aria-hidden="true"></i></a></div> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 order-md-1 text-featured">
+              <div class="row justify-content-end">
+                <div class="col-md-9">
+                  <div class="cl-lightblue mb-30 fs-17">
+                    <div class="o-hidden d-block ps-rel">
+                      <div data-aos="fade-up" class="aos-init"> OUR FEATURED WORKS </div>
+                    </div>
+                  </div>
+                  <div class="fs-47 mb-2 ff-bold text-white">
+                    <div class="o-hidden d-block ps-rel">
+                      <div data-aos="fade-up" class="aos-init"> TVC NIPPON - VIỆT NAM TƯƠI ĐẸP PHẦN 2 | VIEWFINDER PRODUCTION </div>
+                    </div>
+                  </div>
+                  <div class="mb-50 fs-20 aos-init" data-aos="fade-right">
+                    <span class="line_before"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="list_project bg-bluedark">
+        <div class="container">
+          <div class="row mr--5 ml--5 slider-nav">
+            <div class="col-md-3 pl5 pr5">
+              <div class="item_project featured-project-320 aos-init" data-id="featured-project-320" data-aos="fade-up" data-aos-delay="0">
+                <div class="meta_box">
+                  <div class="text-no-wrap title mb-2 fs-19">
+                    <a href="javascript:void(0)"></a>
+                  </div>
+                  <div class="fs-11 o-6"></div>
+                </div>
+                <figure class="thumb-project">
+                  <a class="wrap-img-project" href="javascript:void(0)" style="background-image:url(/upload/vlcsnap-2023-01-04-18h09m10s578-50.png)">
+                    <img src="./upload/vlcsnap-2023-01-04-18h09m10s578-50.png" class="img-fluid" alt="">
+                  </a>
+                  <div class="btn_play btn-play-nav">
+                    <a data-fancybox="" href="https://www.youtube.com/watch?v=fqfY34yuJlA" class="cl-blue">
+                      <i class="fa fa-play fs-23" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </figure>
+              </div>
+            </div>
+            <div class="col-md-3 pl5 pr5">
+              <div class="item_project featured-project-319 aos-init" data-id="featured-project-319" data-aos="fade-up" data-aos-delay="100">
+                <div class="meta_box">
+                  <div class="text-no-wrap title mb-2 fs-19">
+                    <a href="javascript:void(0)"></a>
+                  </div>
+                  <div class="fs-11 o-6"></div>
+                </div>
+                <figure class="thumb-project">
+                  <a class="wrap-img-project" href="javascript:void(0)" style="background-image:url(/upload/vlcsnap-2023-01-04-18h06m29s255-50.png)">
+                    <img src="./upload/vlcsnap-2023-01-04-18h06m29s255-50.png" class="img-fluid" alt="">
+                  </a>
+                  <div class="btn_play btn-play-nav">
+                    <a data-fancybox="" href="https://www.youtube.com/watch?v=1zIG6w6gAL8" class="cl-blue">
+                      <i class="fa fa-play fs-23" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </figure>
+              </div>
+            </div>
+            <div class="col-md-3 pl5 pr5">
+              <div class="item_project featured-project-318 aos-init" data-id="featured-project-318" data-aos="fade-up" data-aos-delay="200">
+                <div class="meta_box">
+                  <div class="text-no-wrap title mb-2 fs-19">
+                    <a href="javascript:void(0)"></a>
+                  </div>
+                  <div class="fs-11 o-6"></div>
+                </div>
+                <figure class="thumb-project">
+                  <a class="wrap-img-project show-img" href="javascript:void(0)" style="background-image:url(/upload/vlcsnap-2023-01-04-18h03m45s264-50.png)">
+                    <img src="./upload/vlcsnap-2023-01-04-18h03m45s264-50.png" class="img-fluid" alt="">
+                  </a>
+                  <div class="btn_play btn-play-nav">
+                    <a data-fancybox="" href="https://www.youtube.com/watch?v=pXl-ml5yRXc" class="cl-blue">
+                      <i class="fa fa-play fs-23" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </figure>
+              </div>
+            </div>
+            <div class="col-md-3 pl5 pr5">
+              <div class="item_project featured-project-292 aos-init" data-id="featured-project-292" data-aos="fade-up" data-aos-delay="300">
+                <div class="meta_box">
+                  <div class="text-no-wrap title mb-2 fs-19">
+                    <a href="javascript:void(0)"></a>
+                  </div>
+                  <div class="fs-11 o-6"></div>
+                </div>
+                <figure class="thumb-project">
+                  <a class="wrap-img-project" href="javascript:void(0)" style="background-image:url(/upload/screen-shot-2022-03-02-at-105456-am.png)">
+                    <img src="upload/screen-shot-2022-03-02-at-105456-am.png" class="img-fluid" alt="">
+                  </a>
+                  <div class="btn_play btn-play-nav">
+                    <a data-fancybox="" href="https://www.youtube.com/watch?v=yhEOXOOlGDc" class="cl-blue">
+                      <i class="fa fa-play fs-23" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img class="swipe-icon" src="./upload/swipe.svg">
+    </div>
+    <!-- about -->
+    <div class="bg-bluedark bg_fixed ps-rel point-sec" id="about-point">
+      <div class="about_us pb-50 pt-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 d-none d-md-block pr10 pl10 aos-init" data-aos="fade-up" data-aos-delay="0">
+              <img src="./upload/about_2.jpg" class="img-fluid o-3" alt="">
+            </div>
+            <div class="col-md-3 d-none d-md-block pr10 pl10 mt-100 aos-init" data-aos="fade-up" data-aos-delay="200">
+              <img src="./upload/about_1.jpg" class="img-fluid o-3" alt="">
+            </div>
+            <div class="col-md-6 pr5 pl5">
+              <div class="content_about mt-50">
+                <div class="fs-15 mb-30 text-uppercase cl-lightblue">
+                  <div class="o-hidden d-block ps-rel">
+                    <div data-aos="fade-up" class="aos-init"> About us </div>
+                  </div>
+                </div>
+                <div class="text-white mb-30 ff-bold fs-47">
+                  <div class="o-hidden d-block ps-rel">
+                    <div data-aos="fade-up" class="aos-init"> A Company <br>like no other </div>
+                  </div>
+                </div>
+                <div class="o-6 fs-15 mb-50">
+                  <div class="o-hidden d-block ps-rel">
+                    <div data-aos="fade-up" class="aos-init">
+                      <p> Viewfinder is an all purpose media company providing great production ideas along with practical methods on how to promote your product within budget and on schedule. We are not just a production company. At our very core, we are collaborators. A professional group of writers, directors, producers, artists, coders, thinkers and doers, who embrace the future. We work hard, and we love to have fun, combining the two creates successful results for us and for our clients. </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="state_info mb-50 ps-rel">
+                <div class="row">
+                  <div class="col-4">
+                    <div data-aos="fade-up" data-aos-delay="0" class="aos-init">
+                      <div class="fs-11 o-6 text-uppercase"> projects </div>
+                      <div class="counter fs-71 ff-thin cl-lightblue o-4" data-count="1200">1200</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div data-aos="fade-up" data-aos-delay="200" class="aos-init">
+                      <div class="fs-11 o-6 text-uppercase text-center"> clients </div>
+                      <div class="counter fs-71 ff-thin cl-lightblue o-4 text-center" data-count="49">49</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div data-aos="fade-up" data-aos-delay="400" class="aos-init">
+                      <div class="fs-11 o-6 text-uppercase text-right"> Team members </div>
+                      <div class="counter fs-71 ff-thin cl-lightblue o-4 text-right" data-count="70">70</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div data-aos="fade-up" class="aos-init">
+                <a href="about.html" class="btn btn-gradient fs-11 text-uppercase text-white">Find out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="our_network mt-100 mb-50 point-sec" id="our-network-point">
+        <div class="container">
+          <div class="row justify-content-end">
+            <div class="col-md-6">
+              <div class="our-network-circle text-center mb-50 aos-init" data-aos="fade-down">
+                <div class="lds-ellipsis">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="fs-15 mb-30 text-uppercase cl-lightblue">
+                <div class="o-hidden d-block ps-rel">
+                  <div data-aos="fade-up" class="aos-init"> OUR NETWORK </div>
+                </div>
+              </div>
+              <div class="text-white mb-30 ff-bold fs-47">
+                <div class="o-hidden d-block ps-rel">
+                  <div data-aos="fade-up" class="aos-init"> In Partnership <br> with AOI TYO Holdings </div>
+                </div>
+              </div>
+              <div class="o-6 fs-15 mb-50">
+                <div class="o-hidden d-block ps-rel">
+                  <div data-aos="fade-up" class="aos-init">
+                    <p>Since 2017, Viewfinder and AOI TYO Holdings have joined forces to better expand services for clients. </p>
+                  </div>
+                </div>
+              </div>
+              <div data-aos="fade-up" class="aos-init">
+                <a href="about.html" class="btn btn-gradient fs-11 text-uppercase text-white">Find out</a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div data-aos="zoom-in" class="aos-init">
+                <img src="./upload/map_section5.png" class="img-fluid" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="point-sec">
+      <div class="container text-our-exp">
+        <div class="mb-50 aos-init" data-aos="fade-down">
+          <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <div class="text-white ff-bold fs-47">
+          <div class="o-hidden d-block ps-rel">
+            <div data-aos="fade-up" class="aos-init"> Our <br> Expertise </div>
+          </div>
+        </div>
+      </div>
+      <div class="your-class">
+        <div class="container-fluid  ">
+          <div class="our_expertise" style="background: url(/upload/Homepage-ExpertiseSect-EquimentRental.jpg) no-repeat center center / cover">
+            <div class="container">
+              <div class="row ps-rel">
+                <div class="col-md-3"></div>
+                <div class="col-md-3 content-slide-stage">
+                  <div class="o-hidden d-block ps-rel">
+                    <div data-aos="fade-up" class="aos-init">
+                      <a href="javascript:void(0)" class="btn btn-right-slick btn-blue text-white mb-30" tabindex="-1">
+                        <img src="./upload/arrow-next.svg" alt="">
+                      </a>
+                      <div class="text-white title mb-30 ff-bold fs-23"> TECHNICAL EQUIPMENT RENTAL </div>
+                      <div class="o-6 fs-15"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid  ">
+          <div class="our_expertise" style="background: url(/upload/Homepage-ExpertiseSect-EquimentRental.jpg) no-repeat center center / cover">
+            <div class="container">
+              <div class="row ps-rel">
+                <div class="col-md-3"></div>
+                <div class="col-md-3 content-slide-stage">
+                  <div class="o-hidden d-block ps-rel">
+                    <div data-aos="fade-up" class="aos-init">
+                      <a href="javascript:void(0)" class="btn btn-right-slick btn-blue text-white mb-30" tabindex="-1">
+                        <img src="./upload/arrow-next.svg" alt="">
+                      </a>
+                       <div class="text-white title mb-30 ff-bold fs-23"> TECHNICAL EQUIPMENT RENTAL </div>
+                      <div class="o-6 fs-15"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+    </div>
+    </div>
+    <div class="bg-water point-sec" id="partner">
+      <div class="box_partner pt-100 pb-50">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <div class="text-white ff-bold mb-30 fs-47">
+                <div class="o-hidden d-block ps-rel">
+                  <div data-aos="fade-up" class="aos-init"> A Trusted <br> Partner </div>
+                </div>
+              </div>
+              <div class="list_partner">
+                <div class="row">
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/partner1.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/partner2.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/partner3.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/partner4.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/partner5.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/partner6.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/partner7.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/partner8.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                  <div class="col-md-3 col-4">
+                    <figure data-aos="fade-left" data-aos-delay="100" class="aos-init">
+                      <img src="upload/circus-1.png" class="img-fluid" alt="">
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="request_box pb-30">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <div class="text-white ff-bold mb-30 fs-47">
+                <div class="o-hidden d-block ps-rel">
+                  <div data-aos="fade-up" class="aos-init">You need <br> a storyteller? </div>
+                </div>
+              </div>
+              <div class="o-hidden d-block ps-rel">
+                <div data-aos="fade-up" class="aos-init">
+                  <a class="btn text-uppercase text-white fs-11 btn-gradient" href="mailto:trieu6542@gmail.com">send us a request</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scene3" id="scene" style="transform: translate3d(0px, 0px, 0px); transform-style: preserve-3d; backface-visibility: hidden;">
+        <div class="wrap-img-parallax-home-1">
+          <img class="layer" data-depth="0.3" src="./upload/waterleft.png" alt="" style="transform: translate3d(2.73435%, -2.9934%, 0px); transform-style: preserve-3d; backface-visibility: hidden; position: relative; display: block; height: 100%; width: 100%; left: 0px; top: 0px;">
+        </div>
+        <div class="wrap-img-parallax-home-2">
+          <img class="layer" data-depth="0.3" src="./upload/waterright.png" alt="" style="transform: translate3d(2.73435%, -2.9934%, 0px); transform-style: preserve-3d; backface-visibility: hidden; position: absolute; display: block; height: 100%; width: 100%; left: 0px; top: 0px;">
+        </div>
+      </div>
+    </div>
+    <footer id="footer_site" class="pt-50 pb-30 bg-bluedark">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="o-6 fs-11">
+              <p>© Copyright 2023 FrankMedia <br> 30/21 Phung Van Cung,Quan Phu Nhuan, Ho Chi Minh City, VietNam <br> 0000000000 </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <style>
+      .our_expertise {
+        height: 100vh;
+      }
+      .content-slide-stage {
+        padding-top: 300px;
+      }
+      .btn {
+    padding: 28.5px 15px;
+      }
+    </style>
+    
+    <script src="./jquery.min.js"></script>
+    
+    <script>
+      $(document).ready(function() {
+  $(window).scroll(function() {
+    var t = $(".circle_ruler").offset().top;
+    $(".circle_ruler").css("top", t / 36 - 110)
+  });
+});
+
+    </script>
+    <script src="./bundle.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+    
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.your-class').slick({
+          dots: false,
+          prevArrow: false,
+          nextArrow: false,
+          nextArrow: document.getElementsByClassName('btn-right-slick'),
+        });
+      });
+    </script>
+
+    <script>
+      $(document).ready(function() {
+        $(".item_project").hover(function() {
+          var projectId = $(this).data("id");
+
+          $(".featured_project").each(function() {
+            var projectId = $(this).data("id");
+            $(this).removeClass("show-img");
+          });
+          $('#'+projectId).addClass('show-img')
+        });
+      })
+    </script>
+    
+
+        
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
